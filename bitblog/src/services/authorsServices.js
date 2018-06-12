@@ -2,6 +2,7 @@ import Author from "../models/Author";
 import { authorsEndpoint } from "../shared/constants";
 
 class AuthorsServices {
+
     fetchAuthors(authorsEndpoint) {
         return fetch(authorsEndpoint)
             .then(response => response.json())
@@ -12,7 +13,7 @@ class AuthorsServices {
     }
 
     fetchSingleAuthor(id) {
-        const singleAuthorEndpoint= `${authorsEndpoint}/${id}`
+        const singleAuthorEndpoint = `${authorsEndpoint}/${id}`
         return fetch(singleAuthorEndpoint)
             .then(response => response.json())
             .then(myResponse => {
@@ -28,7 +29,7 @@ class AuthorsServices {
         return myAuthorsData;
     }
 
-    createAuthorInstance(author) {   
+    createAuthorInstance(author) {
         const { id, name, username, email, address, phone, company } = author;
         const street = address.street;
         const city = address.city;
@@ -37,6 +38,15 @@ class AuthorsServices {
         const slogan = company.catchPhrase
         const authorId = id;
         return new Author(authorId, name, username, email, street, city, zipcode, phone, companyName, slogan);
+    }
+
+    fetchRandomPicture(randomPictureEndpoint) {
+        return fetch(randomPictureEndpoint)
+        .then(response => response.json())
+        .then(response => {
+            const pictureSrc = response.results[0].picture.large;
+            return pictureSrc;
+        })
     }
 }
 

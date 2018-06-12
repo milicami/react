@@ -21,11 +21,11 @@ export const App = () => {
         <Header />
         <Switch>
           <Route exact path='/' component={PostsPage} />
-          <Route path='/posts/new' component={NewPostPage} />
+          <Route exact path='/posts/new' component={NewPostPage} />
           <Route path='/posts/:postId' component={PostDetailsPage} />
           <Route path='/authors/:authorId' component={AuthorDetailsPage} />
-          <Route path='/Authors' component={AuthorsPage} />
-          <Route path='/About' component={AboutPage} />
+          <Route path='/authors' component={AuthorsPage} />
+          <Route path='/about' component={AboutPage} />
         </Switch>
       </main>
       <Footer />

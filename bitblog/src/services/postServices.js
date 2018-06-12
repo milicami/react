@@ -2,6 +2,7 @@ import Post from "../models/Post";
 import { postsEndpoint } from "../shared/constants";
 
 class PostServices {
+
     fetchPosts(postsEndpoint) {
         return fetch(postsEndpoint)
             .then(response => response.json())
@@ -54,21 +55,25 @@ class PostServices {
         })
             .then(response => response.json())
             .then((myPost) => {
-                const {title, body, id} = myPost;
-                return new Post(title, body, id);
+                this.createPostInstance(myPost)
             })
     }
 
     adaptMyPost(myPost) {
-        const {title, body, postId} = myPost;
-        return new Post(title, body, postId);
+        const { title, body, postId, userId } = myPost;
+        return new Post(title, body, postId, userId);
     }
 
     getMyPosts() {
         const postsFromStorage = JSON.parse(localStorage.getItem("createdPosts"))
         return postsFromStorage
     }
-    
+
+    deletePost(postId, postsEndpoint) {
+        return fetch(`${postsEndpoint}/${postId}`, {
+            method: 'DELETE'
+        })
+    }
 
 }
 

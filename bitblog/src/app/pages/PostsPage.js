@@ -1,42 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { PostList } from '../components/posts/PostList';
 import { postService } from '../../services/postServices';
 import { postsEndpoint } from "../../shared/constants";
-
-
+import Search from '../components/posts/Search';
 
 class PostsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: null,
+            searchValue:"" 
         }
     }
 
     componentDidMount() {
-
-        if (postService.getMyPosts()) {
-            const createdPosts = postService.getMyPosts();
-            const adaptedPosts = createdPosts.map(createdPost => {
-                return postService.adaptMyPost(createdPost)
-            })
-            console.log(adaptedPosts)
-            this.setState({
-                posts: adaptedPosts
-            })
-        } else {
-            postService.fetchPosts(postsEndpoint)
-                .then(myPosts => {
-                    this.setState({
-                        posts: myPosts
-                    })
+        postService.fetchPosts(postsEndpoint)
+            .then(myPosts => {
+                this.setState({
+                    posts: myPosts
                 })
-        }
+            })
+    }
+
+    onSearch = (event) => {
+        const inputValue= event.target.value;
+        this.setState({
+            searchValue: inputValue.toLowerCase()
+        })
     }
 
     render() {
+
+        if(!this.state.posts) {
+            return <h3>Loading...</h3>
+        }
         return (
-            <PostList posts={this.state.posts} />
+            <Fragment>
+                <Search onSearch={this.onSearch} searchValue={this.state.searchValue} />
+                <PostList posts={this.state.posts} searchValue={this.state.searchValue}/>
+            </Fragment>
         );
     }
 }

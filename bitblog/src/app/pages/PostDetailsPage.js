@@ -26,23 +26,21 @@ class PostDetailsPage extends Component {
         postService.fetchSinglePost(postId)
             .then(post => {
                 this.setState({
-                    post,
+                    post
                 })
             })
     }
 
     render() {
-
-
         if (!this.state.post) {
             return <h1>Loading...</h1>
         }
         const { post } = this.state;
         return (
             <div className="container">
-                <div className="card">
+                <div className="card myCard">
                     <PostContent post={post} />
-                    <div className="card-content #dce775 lime lighten-2 gray-text">
+                    <div className="card-content #d7ccc8 brown lighten-4">
                         <RelatedPostsList post={post} />
                     </div>
                 </div>

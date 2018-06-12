@@ -5,8 +5,8 @@ const PostContent = (props) => {
 
     const { title, body, userId } = props.post;
     return (
-        <div className="card-content #dce775 lime lighten-4">
-            <h2>{title}</h2>
+        <div className="card-content  #d7ccc8 brown lighten-5">
+            <h3>{title}</h3>
             <AuthorName authorId={userId} />
             <p>{body}</p>
         </div>

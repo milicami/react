@@ -30,7 +30,7 @@ class AuthorName extends Component {
         }
         const {name, authorId} = this.state.author;
         return (
-            <h4><Link to={`/authors/${authorId}`}>{name}</Link></h4>
+            <Link to={`/authors/${authorId}`}><h4 className="grey-text text-darken-1">{name}</h4></Link>
         );
     }
 }
